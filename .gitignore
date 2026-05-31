@@ -1,0 +1,13 @@
+# Environment
+.env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+.DS_Store
+*.csv
+!demo/sample_data.csv

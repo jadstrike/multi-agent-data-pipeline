@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "multi-agent-data-pipeline"
+version = "0.1.0"
+description = "5 specialised AI agents that autonomously clean, validate, transform, detect anomalies and summarise any CSV or PDF data source"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Harshit Tripathi", email = "harshit@britcore.ai"}
+]
+keywords = [
+    "ai", "agents", "data-pipeline", "csv", "pdf",
+    "anthropic", "claude", "data-engineering", "automation"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.25.0",
+    "pandas>=2.0.0",
+    "pydantic>=2.0.0",
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    "python-dotenv>=1.0.0",
+    "streamlit>=1.35.0",
+    "pypdf>=4.0.0",
+    "databricks-sdk>=0.20.0",
+    "snowflake-connector-python>=3.0.0",
+    "psycopg2-binary>=2.9.0",
+    "mysql-connector-python>=8.0.0",
+    "google-cloud-bigquery>=3.0.0",
+    "fpdf2>=2.7.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/harshitboots/multi-agent-data-pipeline"
+Repository = "https://github.com/harshitboots/multi-agent-data-pipeline"
+Issues = "https://github.com/harshitboots/multi-agent-data-pipeline/issues"
+
+[project.scripts]
+multi-agent-pipeline = "main:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
