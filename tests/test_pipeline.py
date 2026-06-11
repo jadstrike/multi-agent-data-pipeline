@@ -191,6 +191,11 @@ class TestRedshiftConnector:
         fetch_table("host", 5439, "dev", "awsuser", "password", "transactions", limit=500)
         assert "LIMIT 500" in fake_connection.cursor().executed_query
 
+    def test_fetch_table_validates_table_name(self, fake_connection):
+        from src.connectors.redshift import fetch_table
+        with pytest.raises(ValueError, match="not found"):
+            fetch_table("host", 5439, "dev", "awsuser", "password", "nonexistent_table")
+
 
 class TestPDFExists:
 

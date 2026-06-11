@@ -28,9 +28,17 @@ def list_tables(host: str, port: int, database: str, user: str, password: str) -
 def fetch_table(host: str, port: int, database: str, user: str, password: str, table: str, limit: int = 1000) -> pd.DataFrame:
     conn = connect(host, port, database, user, password)
     cursor = conn.cursor()
-    cursor.execute(f"SELECT * FROM {table} LIMIT {limit}")
-    columns = [desc[0] for desc in cursor.description]
-    rows = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return pd.DataFrame(rows, columns=columns)
+
+    try:
+        # Validate table exists to prevent SQL injection
+        valid_tables = list_tables(host, port, database, user, password)
+        if table not in valid_tables:
+            raise ValueError(f"Table '{table}' not found in database. Available tables: {', '.join(valid_tables)}")
+
+        cursor.execute(f"SELECT * FROM {table} LIMIT {limit}")
+        columns = [desc[0] for desc in cursor.description]
+        rows = cursor.fetchall()
+        return pd.DataFrame(rows, columns=columns)
+    finally:
+        cursor.close()
+        conn.close()
